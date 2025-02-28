@@ -6,9 +6,11 @@ import { motion } from "motion/react";
 import React, { useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { auth } from "../firebase/firebase";
-import cross_icon from "../assets/cross_icon.svg"
 import { AppContext } from "../context/AppContext";
-
+import { RxCross1 } from "react-icons/rx";
+import { FaUser } from "react-icons/fa6";
+import { MdOutlineMail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 const Login = () => {
   const [state, setState] = React.useState("login");
@@ -81,9 +83,9 @@ const Login = () => {
         transition={{ duation: 0.3 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="max-w-md relative bg-white p-10 rounded-xl text-slate-500"
+        className="max-w-md relative bg-gradient-to-br from-gray-900 to-gray-800 p-10 rounded-xl text-slate-200"
       >
-        <h1 className="text-center text-2xl text-neutral-700 font-medium">
+        <h1 className="text-center text-2xl text-neutral-400 font-medium">
           {state === "login" ? "Login" : "Sign Up"}
         </h1>
         <p className="text-sm">
@@ -91,8 +93,8 @@ const Login = () => {
           continue.{" "}
         </p>
         {state === "signup" && (
-          <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
-            <img alt="" width={15} className="scale-150" />
+          <div className="border-2   border-white/30 px-6 py-2 flex items-center gap-2 rounded-full mt-4">
+            <FaUser size={15} />
             <input
               type="text"
               required
@@ -103,19 +105,19 @@ const Login = () => {
             />
           </div>
         )}
-        <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
-          <img alt="" width={13} />
+        <div className="border-2   border-white/30  px-6 py-2 flex items-center gap-2 rounded-full mt-4">
+          <MdOutlineMail size={15}/>
           <input
             type="email"
             required
-            className="outline-none text-sm"
+            className="outline-none text-sm "
             placeholder="Email-Id"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
         </div>
-        <div className="border px-6 py-2 flex items-center gap-2 rounded-full mt-4">
-          <img alt="" width={10} />
+        <div className=" border-2 border-white/30 px-6 py-2 flex items-center gap-2 rounded-full mt-4">
+          <RiLockPasswordFill size={13}/>
           <input
             type={showPassword ? "text" : "password"}
             required
@@ -174,11 +176,8 @@ const Login = () => {
             </span>
           </p>
         )}
-            <img src={cross_icon}
-                onClick={() => setShowLogin(false)}
-                className='absolute w-4 top-5 right-5 cursor-pointer hover:scale-105 duration-200'
-                alt=""
-            />
+
+            <RxCross1  size={20}  onClick={() => setShowLogin(false)}              className='absolute  top-5 right-5 cursor-pointer hover:scale-105 duration-200'/>
       </motion.form>
     </div>
   );
