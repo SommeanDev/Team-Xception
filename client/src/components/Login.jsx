@@ -19,20 +19,21 @@ const Login = () => {
     setState(state === "login" ? "signup" : "login");
   };
 
-  const registerUser = async (email, password, displayName) => {
+  const registerUser = async (email, password, name) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
       const user = userCredential.user;
 
       // Send user data to backend
-      const response = await fetch("http://localhost:5000/register", {
+      const response = await fetch("http://localhost:8000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, displayName }),
+        body: JSON.stringify({ email, password, name }),
       });
 
       const data = await response.json();
@@ -55,7 +56,7 @@ const Login = () => {
       const idToken = await user.getIdToken();
 
       // Send token to backend for verification
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("http://localhost:8000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken }),

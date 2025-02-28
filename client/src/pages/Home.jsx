@@ -1,49 +1,5 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Post from "../components/Post";
-
-const  posts = [
-    {
-        id : 1,
-        title : "Sample Post Title",
-        content : "This is sample content for the post. It can be longer and will display here.",
-        author : "John Doe",
-        date : "April 15, 2023",
-        likes : 42,
-        comments : 8,
-        image : "https://via.placeholder.com/400x200"
-      },
-    {
-        id : 1,
-        title : "Sample Post Title",
-        content : "This is sample content for the post. It can be longer and will display here.",
-        author : "John Doe",
-        date : "April 15, 2023",
-        likes : 42,
-        comments : 8,
-        image : "https://via.placeholder.com/400x200"
-      },
-    {
-        id : 1,
-        title : "Sample Post Title",
-        content : "This is sample content for the post. It can be longer and will display here.",
-        author : "John Doe",
-        date : "April 15, 2023",
-        likes : 42,
-        comments : 8,
-        image : "https://via.placeholder.com/400x200"
-      },
-    {
-        id : 1,
-        title : "Sample Post Title",
-        content : "This is sample content for the post. It can be longer and will display here.",
-        author : "John Doe",
-        date : "April 15, 2023",
-        likes : 42,
-        comments : 8,
-        image : "https://via.placeholder.com/400x200"
-      },
-    
-  ]
 
 const Home = () => {
   const [selectedPost, setSelectedPost] = useState(null);
@@ -57,6 +13,29 @@ const Home = () => {
     setSelectedPost(null);
     window.history.pushState({}, "", "/");
   };
+
+  const [posts, setPosts] = useState([]);
+  
+      useEffect(() => {
+          const getPosts = async () => {
+              try {
+                  const response = await fetch("http://localhost:8000/posts", {
+                      method: "GET",
+                  });
+
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+
+                  const data = await response.json(); // ✅ Correctly await JSON parsing
+                  setPosts(data); // ✅ Now setting `posts` as an array
+              } catch (error) {
+                  console.error("Error fetching posts:", error);
+              }
+          };
+
+          getPosts();
+      }, []);
 
   return (
     <section className="bg-gradient-to-br h-full from-gray-950 to-gray-900 py-10 ">
