@@ -1,6 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const CreatePost = () => {
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [loading, setLoading] = useState(false) // Ensure setLoading exists
+
+  const createPost = async (e) => {
+    e.preventDefault() // Prevent form submission from reloading the page
+
+    if (!title || !description || !imageUrl) {
+      alert("All fields are required!")
+      return
+    }
+
+    const postData = {
+      title,
+      content: description,
+      imageUrl,
+      time: { _seconds: Math.floor(Date.now() / 1000), _nanoseconds: 0 },
+      userId: "User123", // Replace with dynamic user ID if available
+      categories: ["c1", "c2"], // Make this dynamic if needed
+    }
+
+    try {
+      setLoading(true)
+      const response = await fetch("http://localhost:8000/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      })
+
+      if (!response.ok) throw new Error("Failed to create post")
+
+      const data = await response.json() // Add await here
+      console.log("Post created:", data)
+
+      // Clear form after successful submission
+      setTitle("")
+      setDescription("")
+      setImageUrl("")
+
+      alert("Post created successfully!")
+    } catch (error) {
+      console.error("Error creating post:", error)
+      alert("Something went wrong!")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="bg-gradient-to-br h-full from-gray-950 to-gray-900 py-10">
        <form className="max-w-lg mx-auto p-4 md:p-6 bg-gray-800 rounded-lg shadow-lg my-8 ">
