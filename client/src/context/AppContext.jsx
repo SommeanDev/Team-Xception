@@ -1,10 +1,16 @@
-import { createContext} from "react"
-
+import { createContext, useState } from "react"
 
 export const AppContext = createContext();
 
 const AppContextProvider =(props)=>{
-    const value = {}
+    const [showLogin,setShowLogin] = useState(false);
+
+
+    const value = {
+
+        showLogin,
+        setShowLogin
+    }
 
     return (
         <AppContext.Provider value={value}>

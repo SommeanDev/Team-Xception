@@ -19,7 +19,7 @@ const router=createBrowserRouter([
                 element:<ViewPost/>
             },
             {
-                path:"/create",
+                path:"/posts/create",
                 element:<CreatePost/>
             }
         ]

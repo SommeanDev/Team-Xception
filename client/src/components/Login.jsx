@@ -3,9 +3,12 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 import { motion } from "motion/react";
-import React from "react";
+import React, { useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { auth } from "../firebase/firebase";
+import cross_icon from "../assets/cross_icon.svg"
+import { AppContext } from "../context/AppContext";
+
 
 const Login = () => {
   const [state, setState] = React.useState("login");
@@ -14,6 +17,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [name, setName] = React.useState("");
+
+  const {setShowLogin} = useContext(AppContext);
 
   const handleChangeState = () => {
     setState(state === "login" ? "signup" : "login");
@@ -70,7 +75,7 @@ const Login = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center min-w-full">
+    <div className="fixed top-0 left-0 right-0 bottom-0 z-20 backdrop-blur-sm bg-black/30 flex justify-center items-center min-w-full">
       <motion.form
         initial={{ opacity: 0.2, y: 50 }}
         transition={{ duation: 0.3 }}
@@ -169,11 +174,11 @@ const Login = () => {
             </span>
           </p>
         )}
-        {/* <img 
-                    onClick={() => setShowLogin(false)}
-                    className='absolute w-4 top-5 right-5 cursor-pointer hover:scale-105 duration-200'
-                    alt=""
-                /> */}
+            <img src={cross_icon}
+                onClick={() => setShowLogin(false)}
+                className='absolute w-4 top-5 right-5 cursor-pointer hover:scale-105 duration-200'
+                alt=""
+            />
       </motion.form>
     </div>
   );
