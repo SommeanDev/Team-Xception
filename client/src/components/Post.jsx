@@ -2,13 +2,13 @@ import React from 'react';
 
 const Post = ({post}) => {
 
-  const {id ,title ,content,author ,date ,likes ,comments ,image } =post;
+  const {id ,title ,content, userId ,date ,likes ,comments ,imageUrl } = post;
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 max-w-md mx-auto">
-      {image && (
+      {imageUrl && (
         <div className="w-full h-48 overflow-hidden">
           <img 
-            src={image} 
+            src={imageUrl}
             alt={title} 
             className="w-full h-full object-cover"
           />
@@ -18,7 +18,7 @@ const Post = ({post}) => {
         <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
         <p className="text-gray-600 mb-4 line-clamp-3">{content}</p>
         <div className="flex justify-between items-center text-sm text-gray-500 mb-4">
-          <span>By {author}</span>
+          <span>By {userId}</span>
           <span>{date}</span>
         </div>
         <div className="flex justify-between border-t pt-4">
