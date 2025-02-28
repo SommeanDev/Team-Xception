@@ -38,7 +38,16 @@ const ViewPost = () => {
         <div className="max-w-3xl mx-auto bg-gray-800 p-6 rounded-lg">
           <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
           <p className="text-gray-300">{post.content}</p>
-          <p className="text-gray-400 mt-4">Author: {post.author || "Unknown"}</p>
+          {post.imageUrl && (
+              <div className="w-full h-48 overflow-hidden">
+                <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                />
+              </div>
+          )}
+          <p className="text-gray-400 mt-4">Author: {post.userId || "Unknown"}</p>
         </div>
       </section>
   );
