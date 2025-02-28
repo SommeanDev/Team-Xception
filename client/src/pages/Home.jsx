@@ -1,21 +1,17 @@
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import Post from "../components/Post";
 
 const Home = () => {
   const [selectedPost, setSelectedPost] = useState(null);
-
-  const handlePostClick = (post) => {
-    setSelectedPost(post);
-    window.history.pushState({}, "", `/posts/${post.id}`);
-  };
+  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   const closeModal = () => {
     setSelectedPost(null);
     window.history.pushState({}, "", "/");
   };
 
-  const [posts, setPosts] = useState([]);
-  
       useEffect(() => {
           const getPosts = async () => {
               try {
@@ -27,8 +23,8 @@ const Home = () => {
                       throw new Error(`HTTP error! Status: ${response.status}`);
                   }
 
-                  const data = await response.json(); // ✅ Correctly await JSON parsing
-                  setPosts(data); // ✅ Now setting `posts` as an array
+                  const data = await response.json();
+                  setPosts(data);
               } catch (error) {
                   console.error("Error fetching posts:", error);
               }
@@ -43,7 +39,10 @@ const Home = () => {
       <h1>Home</h1> 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 h-full p-4 py-10" >
         {posts.map((post,i) => (
-        <div key={post.id} onClick={() => handlePostClick(post)} >
+        <div key={post.id} onClick={() => {
+            setSelectedPost(post);
+            navigate(`/posts/${post.id}`);
+        }} >
           <Post post={post}/>
         </div>
       ))}

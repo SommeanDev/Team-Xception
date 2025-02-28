@@ -93,6 +93,25 @@ app.get('/posts', async (req, res) => {
     }
 })
 
+app.get('/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log("Fetching post with ID:", id); // Debugging line
+
+        const postDoc = await db.collection("posts").doc(id).get();
+
+        if (!postDoc.exists) {
+            console.log("Post not found in Firestore:", id); // Debugging line
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        res.json({ id: postDoc.id, ...postDoc.data() });
+    } catch (error) {
+        console.error("Error fetching post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 app.get('/comments', async (req, res) => {
     try {
         const snapshot = await db.collection('comments').get();

@@ -15,7 +15,6 @@ const Navbar = () => {
              className='w-25 md:w-32 lg:w-40 '
              />
           </div>
-          
 
           <div className="flex-1 flex justify-center">
             <div className="relative">
@@ -36,9 +35,6 @@ const Navbar = () => {
               <User className="h-6 w-6" />
             </button>
           </div>
-
-
-          
         </div>
       </div>
     </nav>
