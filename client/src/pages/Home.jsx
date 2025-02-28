@@ -34,7 +34,7 @@ const Home = () => {
       }, []);
 
   return (
-    <section className="bg-gradient-to-br h-full from-gray-950 to-gray-900 py-10 ">
+    <section className="bg-gradient-to-br h-full from-gray-950 to-gray-900 py-10 min-h-screen">
         <div>
       <h1>Home</h1> 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 h-full p-4 py-10" >
